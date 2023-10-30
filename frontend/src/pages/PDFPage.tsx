@@ -1,52 +1,63 @@
-import { useState } from "react";
-import UploadButton from "./UploadButton";
-import { FileProps } from "../types/globalTypes";
-import { useNavigate } from "react-router-dom";
+
+import { string } from "zod"
+import ChatWrapper from "../components/ChatWrapper"
+import PDFRenderer from "../components/PDFRenderer"
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
+export default function PDFPage2 ():JSX.Element {
 
-export default function PDFPage() {
+  const [pdfUrl, setPdfUrl] = useState("");
+  const filename = useParams().name;
 
-  
-    const [files, setFiles] = useState<FileProps[]>([]);
+  useEffect( function () {
 
+    async function api(){
+     
+    await axios.get(`http://127.0.0.1:5000/file/${filename}`, {
+      responseType: 'arraybuffer'
+      })
+      .then((response) => {
+    // handle the response
+        console.log(response.data);
 
-    const navigate = useNavigate();
+        const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+         // eslint-disable-next-line react-hooks/exhaustive-deps
+         const url = URL.createObjectURL(pdfBlob);
 
+          setPdfUrl(url);
 
-    function getFiles(){
+        console.log(url);
         
-    }
+      })
+      .catch((error) => {
+        // handle errors
+        console.log(error);
+      });
+  }
 
-    function deleteFile(id: string){
-        // delete file
-        try {
-            const file : object = { userId:"userId", fileId: id};
+  api();
 
-            const newFiles = files.filter((file) => file.id !== id);
-            
-            const response = await axios.delete('/code',  file);
-      
-      
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          } catch (error: any) {
-        //     console.log(error);
-          } finally {
-            //router.refresh();
-            navigate("/pdf");
-          }
-    }
+  }, []);
+
 
   return (
- 
-    <main className='mx-auto max-w-7xl md:p-10'>
-      <div className='mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0'>
-        <h1 className='mb-3 font-bold text-5xl text-gray-900'>
-          My Files
-        </h1>
+    <div className='flex-1 justify-between flex flex-col h-[calc(100vh-3.5rem)]'>
 
-        <UploadButton/>
+      <div className='mx-auto w-full max-w-8xl grow lg:flex xl:px-2'>
+        {/* Left sidebar & main wrapper */}
+        <div className='flex-1 xl:flex'>
+          <div className='px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6'>
+            {/* Main area */}
+            <PDFRenderer url={pdfUrl} />
+          </div>
+        </div>
+
+        <div className='shrink-0 flex-[0.75] border-t border-gray-200 lg:w-96 lg:border-l lg:border-t-0'>
+          <ChatWrapper/>
+        </div>
       </div>
-    </main>
+    </div>
   )
 }

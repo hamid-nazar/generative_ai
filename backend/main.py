@@ -1,6 +1,4 @@
 from io import BytesIO
-import io
-import os
 from flask import Flask, Response, jsonify, request, send_file
 from config import DevelopmentConfig
 from models import UploadedFile, db, User
@@ -77,10 +75,10 @@ def conversation():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     try:
-        uploaded_file = request.files['file']
+        file = request.files['file']
      
         print(request.files)
-        new_file = UploadedFile(filename=uploaded_file .filename, data=uploaded_file .read())
+        new_file = UploadedFile(filename=file.filename, data=file.read())
         db.session.add(new_file)
         db.session.commit()
 
@@ -91,11 +89,14 @@ def upload_file():
         
 
 
-@app.route('/file', methods=['GET'])
-def get_file():
+@app.route('/file/<name>', methods=['GET'])
+def get_file(name):
     
+    file_name = name + ".pdf"
 
-    upload = UploadedFile.query.first()
+    print(file_name)
+
+    upload = UploadedFile.query.filter_by(filename=file_name).first()
   
     if not upload:
         return jsonify({'message': 'No file found'}), 404
@@ -110,7 +111,7 @@ def get_file():
 
 with app.app_context():
     # Drop database tables
-    # db.drop_all()
+   # db.drop_all()
     # Create database tables
     db.create_all()
 

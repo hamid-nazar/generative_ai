@@ -19,7 +19,7 @@ class User(db.Model):
 class UploadedFile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(255), nullable=False)
-    data = db.Column(db.LargeBinary)
+    data = db.Column(db.LargeBinary(length=(2**32)-1), nullable=False)
 
 
 

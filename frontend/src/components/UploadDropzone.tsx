@@ -3,7 +3,7 @@ import { useState } from "react";
 import Dropzone from "react-dropzone";
 import { Progress } from './ui/progress';
 import { useToast } from './ui/use-toast';
-import { json, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -38,19 +38,14 @@ export default function UploadDropzone(){
 
     async function startUpload(file: File[]){
       console.log(file[0]);
+
+     const pdfName = file[0].name.split('.')[0];
+     console.log(pdfName);
       
-      // const formData = new FormData();
-      // formData.append('file',file[0])
 
-      // const response = await axios.post('http://127.0.0.1:5000/upload', formData,{
-      //   headers: {
-      //     concatentType: 'multipart/form-data'
-      //   } })
-
-    // create a new FormData object and append the file to it
     const formData = new FormData();
     formData.append("file", file[0]);
-    // make a POST request to the File Upload API with the FormData object and Rapid API headers
+    
     axios.post("http://127.0.0.1:5000/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -59,6 +54,7 @@ export default function UploadDropzone(){
       .then((response) => {
 		// handle the response
         console.log(response.data);
+         navigate(`/pdf/${pdfName}`);
       })
       .catch((error) => {
         // handle errors
@@ -68,11 +64,6 @@ export default function UploadDropzone(){
   
         return [];
     }
-
-function startPolling({ key }){
-
-}
-
 
     return (
       <Dropzone
@@ -89,13 +80,13 @@ function startPolling({ key }){
           console.log(response);
           
   
-          // if (!response) {
-          //   return toast({
-          //     title: 'Something went wrong',
-          //     description: 'Please try again later',
-          //     variant: 'destructive',
-          //   })
-          // }
+          if (!response) {
+            return toast({
+              title: 'Something went wrong',
+              description: 'Please try again later',
+              variant: 'destructive',
+            })
+          }
   
           // const [fileResponse] = response
   
@@ -114,7 +105,6 @@ function startPolling({ key }){
           // clearInterval(progressInterval)
           // setUploadProgress(100)
   
-          // startPolling({ key })
 
           // navigate('/pdf')
           
@@ -136,7 +126,7 @@ function startPolling({ key }){
                     or drag and drop
                   </p>
                   <p className='text-xs text-zinc-500'>
-                    PDF files (up to 4MB)
+                    PDF files (up to 4GB)
                   </p>
                 </div>
   
