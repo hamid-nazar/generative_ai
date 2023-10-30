@@ -1,6 +1,11 @@
-from flask import Flask, jsonify, request
+from io import BytesIO
+import io
+import os
+from flask import Flask, Response, jsonify, request, send_file
 from config import DevelopmentConfig
-from models import db, User
+from models import UploadedFile, db, User
+
+from flask_cors import CORS
 
 from utils import hash_password
 from services import generate_text
@@ -10,7 +15,16 @@ app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 db.init_app(app)
 
+CORS(app)
 
+
+# Enable CORS for all routes
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = '*'
+    return response
 
 
 @app.route('/register', methods=['POST'])
@@ -48,7 +62,7 @@ def signup():
 @app.route('/')
 def home():
     
-    return "Hello World"
+    return jsonify(message='Welcome to Savant!')
 
 
 @app.route('/conversation', methods=['POST'])
@@ -58,12 +72,45 @@ def conversation():
     
     response = generate_text(prompt)
     return jsonify(response=response)
+
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    try:
+        uploaded_file = request.files['file']
+     
+        print(request.files)
+        new_file = UploadedFile(filename=uploaded_file .filename, data=uploaded_file .read())
+        db.session.add(new_file)
+        db.session.commit()
+
+        return jsonify({'message': 'File uploaded and saved to the database successfully'})
+    except Exception as e:
+        db.session.rollback()  # Rollback the transaction in case of an error
+        return jsonify({'error': str(e)}), 500
+        
+
+
+@app.route('/file', methods=['GET'])
+def get_file():
+    
+
+    upload = UploadedFile.query.first()
   
+    if not upload:
+        return jsonify({'message': 'No file found'}), 404
+
+    return send_file(BytesIO(upload.data),download_name=upload.filename, as_attachment=True)
+  
+    
+
+
+
 
 
 with app.app_context():
     # Drop database tables
-    db.drop_all()
+    # db.drop_all()
     # Create database tables
     db.create_all()
 
