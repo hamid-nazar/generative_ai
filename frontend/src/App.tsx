@@ -11,8 +11,8 @@ import PdfPage from "./pages/PdfPage";
 
 import { Toast } from "./components/ui/toast";
 import { ToastProvider } from "./components/ui/toast";
-import UploadButton from "./pages/UploadPage";
-import TestPage from "./pages/TestPage";
+import UploadPage from "./pages/UploadPage";
+
 
 
 export default function App() {
@@ -29,8 +29,7 @@ export default function App() {
     <Route path="/code" element={<CodeGenerationPage />} />
     <Route path="/image" element={<ImageGenerationPage />} />
     <Route path="/pdf/:name" element={<PdfPage/>} />
-    <Route path="/drop" element={<UploadButton/>} />
-    <Route path="/upload" element={<TestPage/>} />
+    <Route path="/drop" element={<UploadPage/>} />
 
    
   </Routes>

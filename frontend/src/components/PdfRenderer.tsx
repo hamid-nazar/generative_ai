@@ -6,7 +6,7 @@ import {
     Search,
   } from 'lucide-react'
   // import { Document, Page, pdfjs } from 'react-pdf'
-  import { Document, Page } from 'react-pdf'
+  import { Document, Page, pdfjs } from 'react-pdf'
   
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
@@ -25,7 +25,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import SimpleBar from "simplebar-react"
 import PdfFullscreen from './PdfFullscreen'
 
-export default function PDFRenderer({url}: {url: string}) {
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
+export default function PdfRenderer({url}: {url: string}) {
 
 
     const { toast } = useToast()

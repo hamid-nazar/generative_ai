@@ -1,8 +1,3 @@
-export interface MessageProps {
-    role: string;
-    content: string;
-}
-
 
 export interface UserProps {
     firstName: string;
@@ -11,11 +6,14 @@ export interface UserProps {
 
 }
 
-enum UploadStatus {
+
+export enum UploadStatus {
     PENDING,
     PROCESSING,
     FAILED,
     SUCCESS,
+    UPLOADING,
+    ERROR
 }
 
 export interface FileProps {
@@ -25,4 +23,12 @@ export interface FileProps {
     url: string;
     key:string;
     createdAt: Date;
+}
+
+
+export interface MessageProps {
+    id: string;
+    text: string | React.ReactNode;
+    isUserMessage: boolean;
+    createdAt: string 
 }

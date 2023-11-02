@@ -3,7 +3,7 @@ import {
   Dialog,
   DialogContent,
   DialogTrigger,
-} from './ui/dialog'
+} from './ui/Dialog'
 import { Button } from './ui/Button'
 import { Expand, Loader2 } from 'lucide-react'
 import SimpleBar from 'simplebar-react'

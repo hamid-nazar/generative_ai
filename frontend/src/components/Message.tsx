@@ -1,23 +1,22 @@
-import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import { cn } from '../lib/utils'
 import { format } from 'date-fns'
 import { Bot, User } from 'lucide-react'
+import { MessageProps } from '../types/globalTypes'
 
 
 
-interface MessageProps {
-    message: object
+interface Props {
+    message: MessageProps
     isNextMessageSamePerson: boolean
 }
 
   
- export default function Message({ message, isNextMessageSamePerson }: MessageProps) {
+ export default function Message({ message, isNextMessageSamePerson }: Props) {
     
 
     return (
         <div
-        ref={ref}
         className={cn('flex items-end', {
           'justify-end': message.isUserMessage,
         })}>
@@ -33,9 +32,9 @@ interface MessageProps {
             }
           )}>
           {message.isUserMessage ? (
-            <Icons.user className='fill-zinc-200 text-zinc-200 h-3/4 w-3/4' />
+            <User className='fill-zinc-200 text-zinc-200 h-3/4 w-3/4' />
           ) : (
-            <Icons.logo className='fill-zinc-300 h-3/4 w-3/4' />
+            <Bot className='fill-zinc-300 h-3/4 w-3/4' />
           )}
         </div>
 

@@ -1,7 +1,6 @@
 
-import { string } from "zod"
 import ChatWrapper from "../components/ChatWrapper"
-import PDFRenderer from "../components/PDFRenderer"
+import PdfRenderer from "../components/PdfRenderer"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -33,7 +32,7 @@ export default function PDFPage2 ():JSX.Element {
       })
       .catch((error) => {
         // handle errors
-        console.log(error);
+        console.log("Error: " + error);
       });
   }
 
@@ -50,7 +49,7 @@ export default function PDFPage2 ():JSX.Element {
         <div className='flex-1 xl:flex'>
           <div className='px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6'>
             {/* Main area */}
-            <PDFRenderer url={pdfUrl} />
+            <PdfRenderer url={pdfUrl} />
           </div>
         </div>
 

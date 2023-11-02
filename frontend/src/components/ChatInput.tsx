@@ -1,16 +1,17 @@
-import { Send } from "lucide-react"
 import { Button } from "./ui/Button"
 import { Textarea } from "./ui/textarea"
 
-import { useContext, useRef } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { ChatContext } from "../services/ChatContext"
+import { Send } from "lucide-react";
 
 export default function ChatInput({isDisabled}: {isDisabled?: boolean}) {
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   const{addMessage, message, handleInputChange, isLoading} = useContext(ChatContext);
 
-  
+
   return (
     <div className='absolute bottom-0 left-0 w-full'>
       <div className='mx-2 flex flex-row gap-3 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w-3xl'>
@@ -38,7 +39,7 @@ export default function ChatInput({isDisabled}: {isDisabled?: boolean}) {
               />
 
               <Button
-                disabled={isLoading || isDisabled}
+               disabled={isLoading || isDisabled}
                 className='absolute bottom-1.5 right-[8px]'
                 aria-label='send message'
                 onClick={() => {

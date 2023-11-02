@@ -9,7 +9,7 @@ import { ChatContextProvider } from '../services/ChatContext';
 export default function ChatWrapper() {
   
   function fetchData() {
-    return "PROCESSING"
+    return "LOADINGs"
   }
 
   if (fetchData() === 'LOADING') {
@@ -77,7 +77,7 @@ export default function ChatWrapper() {
       </div>
     )
   return (
-    <ChatContextProvider fileId={''}>
+    <ChatContextProvider>
     <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
     <div className='flex-1 justify-between flex flex-col mb-28'>
       <Messages />
