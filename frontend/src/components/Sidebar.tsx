@@ -1,56 +1,13 @@
 
 import { Link, useLocation } from 'react-router-dom'
 import { cn } from "../lib/utils";
-import { Code, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon } from "lucide-react";
 
-// import { GoogleFont } from "react-google-fonts";
 
 import FreeCounter from './FreeCounter';
+import { routes } from '../services/routes';
 
 
-const routes = [
-  {
-    label: 'Dashboard',
-    icon: LayoutDashboard,
-    to: '/dashboard',
-    color: "text-sky-500"
-  },
-  {
-    label: 'Conversation',
-    icon: MessageSquare,
-    to: '/conversation',
-    color: "text-violet-500",
-  },
-  {
-    label: 'Image Generation',
-    icon: ImageIcon,
-    color: "text-pink-700",
-    to: '/image',
-  },
-  {
-    label: 'Video Generation',
-    icon: VideoIcon,
-    color: "text-orange-700",
-    to: '/video',
-  },
-  {
-    label: 'Music Generation',
-    icon: Music,
-    color: "text-emerald-500",
-    to: '/music',
-  },
-  {
-    label: 'Code Generation',
-    icon: Code,
-    color: "text-green-700",
-    to: '/code',
-  },
-  {
-    label: 'Settings',
-    icon: Settings,
-    to: '/settings',
-  },
-];
+
 
 export default function Sidebar() {
 

@@ -9,7 +9,7 @@ import { MessageSquare } from "lucide-react";
 import DashboardLayout from "../components/DashboardLayout";
 import { Heading } from "../components/Heading";
 import { useForm } from "react-hook-form";
-import { formSchemaText } from "../lib/constants";
+import { formSchemaText } from "../services/constants";
 
 import  BotAvatar  from "../components/BotAvatar";
 import { Button } from "../components/ui/Button";
@@ -19,10 +19,13 @@ import { Form, FormControl, FormField, FormItem } from "../components/ui/Form";
 import { cn } from "../lib/utils";
 import  Loader from "../components/Loader";
 import  UserAvatar  from "../components/UserAvatar";
-import Empty from "../components/Empty";
+import { Empty } from "../components/Empty";
 
 
-import { MessageProps } from "../types/globalTypes";
+interface MessageProps{
+  content:string,
+  role:string
+}
 
 
 export default function ConversationPage() {
@@ -113,6 +116,7 @@ export default function ConversationPage() {
           )}
           {messages.length === 0 && !isLoading && (
             <Empty label="No conversation started." />
+            
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message) => (

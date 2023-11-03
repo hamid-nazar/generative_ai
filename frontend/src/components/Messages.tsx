@@ -16,7 +16,7 @@ export default function Messages() {
   // const {messages} = useContext(ChatContext);
 
 
-  const messages = randomMessages;
+  const messages = randomMessages.reverse();
 
 
 
@@ -39,7 +39,7 @@ export default function Messages() {
   const combinedMessages = [
     ...(true ? [loadingMessage] : []),
     ...(messages ?? []),
-  ].reverse();
+  ];
 
 
   return (
@@ -48,12 +48,6 @@ export default function Messages() {
       combinedMessages.map((message, i) => {
 
         const isNextMessageSamePerson = combinedMessages[i - 1]?.isUserMessage === combinedMessages[i]?.isUserMessage
-
-        if (i === combinedMessages.length - 1) {
-          return (
-            <Message message={message} isNextMessageSamePerson={isNextMessageSamePerson} key={message.id}/>
-          )
-        } else
           return (
             <Message message={message}isNextMessageSamePerson={isNextMessageSamePerson} key={message.id}/>
           )

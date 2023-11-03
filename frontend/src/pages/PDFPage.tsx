@@ -4,6 +4,7 @@ import PdfRenderer from "../components/PdfRenderer"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import PdfHeading from "../components/PdfHeading";
 
 export default function PDFPage2 ():JSX.Element {
 
@@ -42,8 +43,9 @@ export default function PDFPage2 ():JSX.Element {
 
 
   return (
+    <>
+    <PdfHeading/>
     <div className='flex-1 justify-between flex flex-col h-[calc(100vh-3.5rem)]'>
-
       <div className='mx-auto w-full max-w-8xl grow lg:flex xl:px-2'>
         {/* Left sidebar & main wrapper */}
         <div className='flex-1 xl:flex'>
@@ -58,5 +60,6 @@ export default function PDFPage2 ():JSX.Element {
         </div>
       </div>
     </div>
+    </>
   )
 }

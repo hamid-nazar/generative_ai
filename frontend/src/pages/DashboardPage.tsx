@@ -1,11 +1,11 @@
-import React from 'react'
+
 import DashboardLayout from '../components/DashboardLayout'
 
 import { Card } from "../components/ui/Card";
 import { cn } from "../lib/utils";
 import { ArrowRight } from 'lucide-react';
 
-import { tools } from "../lib/constants";
+import { tools } from "../services/constants";
 
 
 import { useNavigate } from "react-router-dom";

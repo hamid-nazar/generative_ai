@@ -12,6 +12,7 @@ import PdfPage from "./pages/PdfPage";
 import { Toast } from "./components/ui/toast";
 import { ToastProvider } from "./components/ui/toast";
 import UploadPage from "./pages/UploadPage";
+import ChatPage from "./pages/ChatPage";
 
 
 
@@ -30,6 +31,7 @@ export default function App() {
     <Route path="/image" element={<ImageGenerationPage />} />
     <Route path="/pdf/:name" element={<PdfPage/>} />
     <Route path="/drop" element={<UploadPage/>} />
+    <Route path="/chat" element={<ChatPage/>} />
 
    
   </Routes>

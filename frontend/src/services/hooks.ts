@@ -73,11 +73,12 @@ export function useSendMessage(message: MessageProps){
 
     sendMessage();
 
-    return {
-        response,
-        isLoading,
-        status
-    }
+ 
 
+    return[
+      response,
+      isLoading,
+      status
+    ]
 
 }
