@@ -1,16 +1,10 @@
-import { Code, FileQuestion, ImageIcon, LayoutDashboard, MessageSquare } from "lucide-react";
+import { FileQuestion, ImageIcon, MessageSquare } from "lucide-react";
 
 export const routes = [
     {
-      label: 'Dashboard',
-      icon: LayoutDashboard,
-      to: '/dashboard',
-      color: "text-sky-500"
-    },
-    {
       label: 'Conversation',
       icon: MessageSquare,
-      to: '/conversation',
+      to: '/',
       color: "text-violet-500",
     },
     {
@@ -18,13 +12,6 @@ export const routes = [
       icon: ImageIcon,
       color: "text-pink-700",
       to: '/image',
-    },
-  
-    {
-      label: 'Code Generation',
-      icon: Code,
-      color: "text-green-700",
-      to: '/code',
     },
   
     {

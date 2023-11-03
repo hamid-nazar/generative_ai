@@ -1,10 +1,10 @@
 
-import ChatWrapper from "../components/ChatWrapper"
 import PdfRenderer from "../components/PdfRenderer"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import PdfHeading from "../components/PdfHeading";
+import ChatPage from "./ChatPage";
 
 export default function PDFPage2 ():JSX.Element {
 
@@ -54,9 +54,8 @@ export default function PDFPage2 ():JSX.Element {
             <PdfRenderer url={pdfUrl} />
           </div>
         </div>
-
         <div className='shrink-0 flex-[0.75] border-t border-gray-200 lg:w-96 lg:border-l lg:border-t-0'>
-          <ChatWrapper/>
+          <ChatPage/>
         </div>
       </div>
     </div>

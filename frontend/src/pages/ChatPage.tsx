@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { buttonVariants } from '../components/ui/Button';
 import Messages from '../components/Messages';
 import { ChatContextProvider } from '../services/ChatContext';
-import DashboardLayout from '../components/DashboardLayout';
 
 export default function ChatPage() {
   
@@ -79,14 +78,12 @@ export default function ChatPage() {
     )
   return (
     <ChatContextProvider>
-       <DashboardLayout>
     <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
     <div className='flex-1 justify-between flex flex-col mb-28'>
       <Messages />
     </div>
     <ChatInput />
   </div>
-  </DashboardLayout>
   </ChatContextProvider>
   )
 }
