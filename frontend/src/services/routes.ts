@@ -1,15 +1,15 @@
-import { FileQuestion, ImageIcon, MessageSquare } from "lucide-react";
+import { Bot, FileQuestion, Sparkle } from "lucide-react";
 
 export const routes = [
     {
       label: 'Conversation',
-      icon: MessageSquare,
+      icon: Bot,
       to: '/',
       color: "text-violet-500",
     },
     {
       label: 'Image Generation',
-      icon: ImageIcon,
+      icon: Sparkle,
       color: "text-pink-700",
       to: '/image',
     },

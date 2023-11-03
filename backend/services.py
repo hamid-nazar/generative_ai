@@ -11,20 +11,28 @@ def generate_text(prompt):
         prompt=prompt,
         max_tokens=50,
         n=1,
-        temperature=0.5,
+        temperature=0,
     )
     return response.choices[0].text
 
 
-def language_translator(to_lang, text):
-
-    result = f"translate to {to_lang} the following: {text}"
-
-    response = openai.Completion.create(
-        engine="davinci",
-        prompt=result,
-        max_tokens=50,
-        n=1,
-        temperature=0.5,
+def generate_image(prompt="An astronaut riding a horse",n=2, size="256x256"):
+    response = openai.Image.create(
+        prompt=prompt,
+        n=n,
+        size=size,
     )
-    return response.choices[0].text
+
+    images = []
+    for image in response["data"]:
+
+        image_url = image["url"]
+
+        images.append({"url": image_url})
+
+    return images
+
+
+# generated_image = generate_image("An astronaut riding a horse",2,"256x256")
+
+# print(generated_image)

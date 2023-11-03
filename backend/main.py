@@ -6,7 +6,7 @@ from models import UploadedFile, db, User
 from flask_cors import CORS
 
 from utils import hash_password
-from services import generate_text
+from services import generate_image, generate_text
 
 
 app = Flask(__name__) 
@@ -65,11 +65,48 @@ def home():
 
 @app.route('/conversation', methods=['POST'])
 def conversation():
+
     data = request.get_json()
-    prompt = data.get('prompt')
+
+    print('Received data:', data)
     
+    prompt = data['content']
+
+    print("Received prompt: " + prompt)
+
     response = generate_text(prompt)
-    return jsonify(response=response)
+
+    print("Generated response: " + response)
+
+    return jsonify({"content": response, "role":"assistant"})
+
+    # return jsonify({'message': 'message received'})
+
+
+@app.route('/image', methods=['POST'])
+def image_generator():
+
+    try:
+        prompt = request.json['prompt']
+
+        n = int(request.json['amount'])
+        
+
+        size = request.json['resolution']
+        
+        print("Received prompt: " + prompt, n,size)
+      
+        images = []
+
+        images = generate_image(prompt=prompt, n=n, size=size)
+
+
+        return jsonify(images)
+    
+    except Exception as e:
+        db.session.rollback()  # Rollback the transaction in case of an error
+        return jsonify({'error': str(e)}), 500
+
 
 
 @app.route('/upload', methods=['POST'])

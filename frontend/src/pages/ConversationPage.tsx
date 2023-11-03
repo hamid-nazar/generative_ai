@@ -5,7 +5,7 @@ import { useState } from "react";
 import * as z from "zod";
 import axios from "axios";
 
-import { MessageSquare } from "lucide-react";
+import { Bot, MessageSquare } from "lucide-react";
 import DashboardLayout from "../components/DashboardLayout";
 import { Heading } from "../components/Heading";
 import { useForm } from "react-hook-form";
@@ -49,11 +49,28 @@ export default function ConversationPage() {
     try {
       const userMessage: object = { role: "user", content: values.prompt };
 
-      const newMessages = [...messages, userMessage];
+      console.log(userMessage);
       
-      const response = await axios.post('/code', { messages: newMessages });
+      
+      const response = await axios.post('http://127.0.0.1:5000/conversation',
+       userMessage,{
+        headers: {
+          'Content-Type': 'application/json'
+        } });
 
-      setMessages((current) => [...current, userMessage, response.data]);
+        const data = await response.data;
+
+        console.log(data);
+        
+     
+      
+
+       setMessages((current) => [...current, userMessage, data]);
+
+      messages.forEach((message) => {
+        console.log(message);
+      });
+      
       
       form.reset();
 
@@ -62,13 +79,16 @@ export default function ConversationPage() {
   //     console.log(error);
     } finally {
       //router.refresh();
-      navigate("/conversation");
+      navigate("/");
     }
-    
   }
+
+
+
+
   return (
     <DashboardLayout>
-        <Heading title="Conversation" description="Chat with the smartest AI" icon={MessageSquare} iconColor="text-violet-500" bgColor="bg-violet-500/10"/>
+        <Heading title="Your Ultimate Companion" icon={Bot} iconColor="text-gray-900" bgColor="bg-violet-500/10" description={""}/>
         <div className="px-4 lg:px-8">
         <div>
           <Form {...form}>

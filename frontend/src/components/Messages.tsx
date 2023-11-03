@@ -18,6 +18,7 @@ export default function Messages() {
 
   const messages = randomMessages.reverse();
 
+console.log(messages);
 
 
   const lastMessageRef = useRef<HTMLDivElement>(null)
@@ -33,8 +34,6 @@ export default function Messages() {
       </span>
     ),
   }
-
-
 
   const combinedMessages = [
     ...(true ? [loadingMessage] : []),

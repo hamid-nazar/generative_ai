@@ -8,7 +8,7 @@ export default function Loader (){
           />
         </div>
         <p className="text-sm text-muted-foreground">
-          Savant is thinking...
+          Savant is Generating...
         </p>
       </div>
     );

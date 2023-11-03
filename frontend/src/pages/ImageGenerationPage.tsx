@@ -5,7 +5,7 @@ import { useState } from "react";
 import * as z from "zod";
 import axios from "axios";
 
-import { Download, ImageIcon} from "lucide-react";
+import { Download,Sparkle} from "lucide-react";
 import DashboardLayout from "../components/DashboardLayout";
 import { Heading } from "../components/Heading";
 import { useForm } from "react-hook-form";
@@ -37,41 +37,57 @@ export default function ConversationPage() {
   const form = useForm<z.infer<typeof formSchemaImage>>({
     resolver: zodResolver(formSchemaImage),
     defaultValues: {
-      prompt: "",
+      prompt: "a flying robot",
       amount: "1",
-      resolution: "512x512"
+      resolution: '256x256'
     }
   });
+
 
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchemaImage>) => {
 
     try {
-        setPhotos([]);
+        
+        console.log(values);
+        
 
-        const response = await axios.post('/image', values);
+        const response = await axios.post('http://127.0.0.1:5000/image', values,{
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
   
-        const urls = response.data.map((image: { url: string }) => image.url);
-  
-        setPhotos(urls);
+         const images= await response.data;
+
+        console.log(images);
+   
+         const  urls = images.map((image: { url: string; }) => image.url);
+
+         console.log(urls);
+         
+
+        console.log("values", values);
+        
+        setPhotos((current)=> [...current, ...urls]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
   //     console.log(error);
     } finally {
       //router.refresh();
-      navigate("/conversation");
+      navigate("/image");
     }
     
   }
   return (
     <DashboardLayout>
          <Heading
-        title="Image Generation"
-        description="Turn your prompt into an image."
-        icon={ImageIcon}
-        iconColor="text-pink-700"
+        title="Generate Images With Your imagination"
+        description=""
+        icon={Sparkle}
+        iconColor="text-pink-1000"
         bgColor="bg-pink-700/10"
       />
       <div className="px-4 lg:px-8">
