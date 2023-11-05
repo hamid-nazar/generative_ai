@@ -84,7 +84,7 @@ export default function ConversationPage() {
   return (
     <DashboardLayout>
          <Heading
-        title="Generate Images With Your imagination"
+        title="Generate Images With Your Imagination"
         description=""
         icon={Sparkle}
         iconColor="text-pink-1000"

@@ -5,20 +5,19 @@ import { useState } from "react";
 import * as z from "zod";
 import axios from "axios";
 
-import { Bot, MessageSquare } from "lucide-react";
+import { Bot,User } from "lucide-react";
 import DashboardLayout from "../components/DashboardLayout";
 import { Heading } from "../components/Heading";
 import { useForm } from "react-hook-form";
 import { formSchemaText } from "../services/constants";
 
-import  BotAvatar  from "../components/BotAvatar";
+
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "../components/ui/Form";
 import { cn } from "../lib/utils";
 import  Loader from "../components/Loader";
-import  UserAvatar  from "../components/UserAvatar";
 import { Empty } from "../components/Empty";
 
 
@@ -47,25 +46,41 @@ export default function ConversationPage() {
   const onSubmit = async (values: z.infer<typeof formSchemaText>) => {
 
     try {
-      const userMessage: object = { role: "user", content: values.prompt };
+
+      const userMessage= { role: "user", content: values.prompt};
 
       console.log(userMessage);
+
+    
+     messages.push(userMessage);
+      
+    
+      console.log(messages);
       
       
-      const response = await axios.post('http://127.0.0.1:5000/conversation',
-       userMessage,{
+      const response = await axios.post('http://127.0.0.1:5000/conversation',{"prompt": messages},{
         headers: {
           'Content-Type': 'application/json'
         } });
 
-        const data = await response.data;
+        let data = await response.data;
+
 
         console.log(data);
-        
-     
-      
 
-       setMessages((current) => [...current, userMessage, data]);
+        // if (data.content.inludes("assistant:")) {
+          
+        //  data =  {...data,content:data.content.split(":")[1].trim()};
+          
+        // }
+       
+        
+
+
+        // console.log(newData);
+        
+        
+       setMessages((current) => [...current, data]);
 
       messages.forEach((message) => {
         console.log(message);
@@ -147,7 +162,7 @@ export default function ConversationPage() {
                   message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
                 )}
               >
-                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
+                {message.role === "user" ? <User/> : <Bot className="text-violet-900" />}
                 <p className="text-sm">
                   {message.content}
                 </p>

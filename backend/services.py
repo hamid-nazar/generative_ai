@@ -5,18 +5,27 @@ from decouple import config
 openai.api_key = config("OPENAI_API_KEY")
 
 
-def generate_text(prompt):
-    response = openai.Completion.create(
+def generate_text(messages):
+
+     instruction = """You are a virtual companion who is empathetic, patient, and knowledgeable. Answer as pricesily as possible to the following prompt: """
+
+     prompt = ""
+     for message in messages:
+        prompt += f"{message['role']}: {message['content']}\n"
+
+     print(prompt)
+
+     response = openai.Completion.create(
         engine="text-davinci-003",
-        prompt=prompt,
-        max_tokens=50,
+        prompt=f"{instruction} \n {prompt} \n Dont include the word 'Assistant: ' in your response.",
+        max_tokens=100,
         n=1,
         temperature=0,
     )
-    return response.choices[0].text
+     return response.choices[0].text
 
 
-def generate_image(prompt="An astronaut riding a horse",n=2, size="256x256"):
+def generate_image(prompt="An astronaut riding a horse",n=1, size="256x256"):
     response = openai.Image.create(
         prompt=prompt,
         n=n,

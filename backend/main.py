@@ -70,11 +70,11 @@ def conversation():
 
     print('Received data:', data)
     
-    prompt = data['content']
+    messages = data['prompt']
 
-    print("Received prompt: " + prompt)
+    print("Received prompt: ", messages)
 
-    response = generate_text(prompt)
+    response = generate_text(messages)
 
     print("Generated response: " + response)
 
