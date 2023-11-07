@@ -6,7 +6,7 @@ from models import UploadedFile, db, User
 from flask_cors import CORS
 
 from utils import hash_password
-from services import generate_image, generate_text
+from services import create_embedding, generate_image, generate_text
 
 
 app = Flask(__name__) 
@@ -113,6 +113,10 @@ def image_generator():
 def upload_file():
     try:
         file = request.files['file']
+
+        # file_data = file.read()
+
+        # create_embedding(file_data)
      
         print(request.files)
         new_file = UploadedFile(filename=file.filename, data=file.read())
