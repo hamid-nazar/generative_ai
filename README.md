@@ -1,12 +1,32 @@
-# SaaS Platform Powered By Generative AI
-* I will develop, as part of my mandatory machine learning course assignment, a SaaS AI Platform based on the requirements and description below.
+# Savant
 
-## Requirements:
-* You must construct an application powered by at least one generative AI model. Whether it's a text, speech, code, image generation, or another generative AI model or combination of generative AI models, it is up to you.
-* Your application can be based on interfacing with the model(s) via API(s), for example, the OpenAI API, or based on installing models locally.
-* You must write a short report about your work. You should start writing the report as soon as possible and then update it after you've conducted some hands-on experiments. 
-* You have to create and use a GitHub repository for your project. It has to include all the code and documentation needed to understand what you did and how. It must also contain your written report. You will submit a link to this repository to Canvas before the deadline. If the repository is private, you must add me (user alu042) as a collaborator before submitting.
-* Your work must be well-documented and, of course, not plagiarized. If you incorporate other people's code or ideas in your solutions, ensure that you fully understand them and include references.
-* It must be easy for others to reproduce your work.
-* You must create a short video demonstrating how one can interact with your application or, alternatively and even better, make it available by hosting it online.
+Savant is a web application that integrates the OpenAI API to perform text generation, image generation, and similarity/semantic search on documents. The objective of the application is to leverage generative AI models to provide users with powerful tools for content generation and document analysis. The motivation behind selecting this project was to explore the capabilities of OpenAI models and create a user-friendly interface for utilizing these models in real-world applications.
 
+For similarity/semantic search on documents, I have Pinecone, which is a fully managed vector database platform designed to handle high-dimensional vector data at scale.The OpenAI Embedding API is used to generate embeddings for the text data. 
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Getting Started
+
+Provide instructions on how to set up and run your Flask project.
+
+### Prerequisites
+
+List any prerequisites or dependencies that users need to have installed before they can use your project. Mention if you've included a Conda environment or requirements file.
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/your-repo.git
+2. Go to the "backend" directory and run: ´´´pip install -r requirements.txt```
+3. Run: ```Python3 main.py ```
