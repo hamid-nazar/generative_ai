@@ -4,12 +4,27 @@ import { ChevronLeft, Loader2, XCircle } from 'lucide-react'
 import { Link } from "react-router-dom";
 import { buttonVariants } from '../components/ui/Button';
 import Messages from '../components/Messages';
-import { ChatContextProvider } from '../services/ChatContext';
+import { ChatContext, ChatContextProvider } from '../services/ChatContext';
+import { useContext, useState } from 'react';
+import { UploadStatus } from '../types/globalTypes';
 
 export default function ChatPage() {
+
+
+  const {state} = useContext(ChatContext);
+
   
   function fetchData() {
-    return "LOADINGs"
+    if (state == UploadStatus.LOADING) {
+      return "LOADING"
+    } 
+    else if (state == UploadStatus.ERROR) {
+      return "FAILED"
+    }
+    else if (state == UploadStatus.PROCESSING) {
+      return "PROCESSING"
+    }
+    return "SUCCESS"
   }
 
   if (fetchData() === 'LOADING') {

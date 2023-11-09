@@ -8,11 +8,9 @@ export interface UserProps {
 
 
 export enum UploadStatus {
-    PENDING,
+    LOADING,
     PROCESSING,
-    FAILED,
     SUCCESS,
-    UPLOADING,
     ERROR
 }
 

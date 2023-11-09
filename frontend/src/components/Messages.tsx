@@ -1,28 +1,19 @@
 import { Loader2, MessageSquare } from "lucide-react";
 import Skeleton from 'react-loading-skeleton'
-import { useContext, useRef, useState } from "react"
+import { useContext, useRef } from "react"
 import Message from "./Message"
 import { ChatContext } from "../services/ChatContext";
-import { randomMessages } from "../services/randomMessages";
+
 
 
 export default function Messages() {
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  const isNextMessageSamePerson = false;
 
 // load messages from the backend
-  // const {messages} = useContext(ChatContext);
+  const {messages, isLoading} = useContext(ChatContext);
 
 
-  const messages = randomMessages.reverse();
-
-console.log(messages);
-
-
-  const lastMessageRef = useRef<HTMLDivElement>(null)
-
+  // const lastMessageRef = useRef<HTMLDivElement>(null);
 
   const loadingMessage = {
     createdAt: new Date().toISOString(),
@@ -36,7 +27,7 @@ console.log(messages);
   }
 
   const combinedMessages = [
-    ...(true ? [loadingMessage] : []),
+    ...(isLoading ? [loadingMessage] : []),
     ...(messages ?? []),
   ];
 

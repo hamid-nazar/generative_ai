@@ -68,17 +68,7 @@ export default function ConversationPage() {
 
         console.log(data);
 
-        // if (data.content.inludes("assistant:")) {
-          
-        //  data =  {...data,content:data.content.split(":")[1].trim()};
-          
-        // }
-       
-        
 
-
-        // console.log(newData);
-        
         
        setMessages((current) => [...current, data]);
 

@@ -1,10 +1,12 @@
+import json
 import uuid
 import time
 from PyPDF2 import PdfReader
+from PyPDF2.generic import IndirectObject
 import openai
 from decouple import config
 import pinecone
-
+import numpy as np
 
 openai.api_key = config("OPENAI_API_KEY")
 
@@ -41,6 +43,8 @@ def generate_text(messages):
         n=1,
         temperature=0,
     )
+     
+     
      return response.choices[0].text
 
 
@@ -80,8 +84,11 @@ def create_paragraph_chunks(text):
     return text_chunks
 
 def embed(chunk):
+
+    text = chunk.replace("\n", " ")
+
     response = openai.Embedding.create(
-            input=chunk,
+            input=[text],
             model="text-embedding-ada-002"
         )
     return response["data"][0]["embedding"]
@@ -97,6 +104,8 @@ def save_to_pinecone( embeddings):
 
 def create_embedding(pdf_file):
 
+    # pinecone_index.delete()
+
     reader = PdfReader(pdf_file)
     pages = reader.pages
 
@@ -104,52 +113,94 @@ def create_embedding(pdf_file):
     text_chunks = []
  
     for page in pages:
-        
-         page  += page.extract_text()
-
-         text_chunks.append(page)
+    
+         text = page.extract_text()
+         
+         text_chunks.append(text)
 
     # text_chunks = create_paragraph_chunks(text)
 
-    print(len(text_chunks))
+    print(text)
 
     embeddings = []
         
     for chunk in text_chunks:
        id = uuid.uuid4().hex
        embedding = embed(chunk)
-    #    print(embedding)
+       print(embedding)
        embeddings.append([(id, embedding, {"text": chunk})])
-    
+
     save_to_pinecone(embeddings)
 
-# pdf_file_path = './socrates.pdf'
+
+# pdf_file_path = './facts.pdf'
 
 # create_embedding(pdf_file_path)
 
 
+def prompt_generator(query, contexts):
+
+    limit = 400
+
+    prompt_start = (
+        "Answer the question based on the context below.\n\n"+
+        "Context:\n"
+    )
 
     
-def query(query_text):
+    prompt_end = (
+        f"\n\nQuestion: {query}\nAnswer:"
+    )
+    # append contexts until hitting limit
+    for i in range(1, len(contexts)):
+        if len("\n\n---\n\n".join(contexts[:i])) >= limit:
+            prompt = (
+                prompt_start +
+                "\n\n---\n\n".join(contexts[:i-1]) +
+                prompt_end
+            )
+            break
+        elif i == len(contexts)-1:
+            prompt = (
+                prompt_start +
+                "\n\n---\n\n".join(contexts) +
+                prompt_end
+            )
+    return prompt
+
+
+def OpenAI_concrete_response_about_pdf(prompt):
+
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=100,
+        n=1,
+        temperature=0, )
+
+    return response.choices[0].text
+
+    
+def query_pincone(query_text):
 
     query_embedding = embed(query_text)
 
-    results = pinecone_index.query(query_embedding, top_k=5,include_metadata=True)
+    results = pinecone_index.query([query_embedding], top_k=2,include_metadata=True)
 
     return results
 
 
 
-# query_text = "What is the aapital of australia "
+# query_text = "What is the capital of australia "
 
 # results = query(query_text)
 
-# print(results)
 
 # for match in results["matches"]:
 #     print(f"Text chunk: {match['metadata']['text']}")
 #     print(f"Similarity score: {match['score']}")
 #     print("\n")
+
 
 
 

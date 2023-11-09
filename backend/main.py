@@ -1,4 +1,5 @@
 from io import BytesIO
+from PyPDF2 import PdfReader
 from flask import Flask, Response, jsonify, request, send_file
 from config import DevelopmentConfig
 from models import UploadedFile, db, User
@@ -6,7 +7,7 @@ from models import UploadedFile, db, User
 from flask_cors import CORS
 
 from utils import hash_password
-from services import create_embedding, generate_image, generate_text
+from services import create_embedding, generate_image, generate_text, prompt_generator, query_pincone, OpenAI_concrete_response_about_pdf
 
 
 app = Flask(__name__) 
@@ -112,11 +113,11 @@ def image_generator():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     try:
+    # delete all files from the database before uploading a new one
+        # db.session.query(UploadedFile).delete()
+        # db.session.commit()
+
         file = request.files['file']
-
-        # file_data = file.read()
-
-        # create_embedding(file_data)
      
         print(request.files)
         new_file = UploadedFile(filename=file.filename, data=file.read())
@@ -141,13 +142,48 @@ def get_file(name):
   
     if not upload:
         return jsonify({'message': 'No file found'}), 404
+    
+    pdf_file = BytesIO(upload.data)
+
+    create_embedding(pdf_file)
 
     return send_file(BytesIO(upload.data),download_name=upload.filename, as_attachment=True)
   
     
 
+@app.route('/search/<name>', methods=['POST'])
+def similarity_search(name):
+    
+    try:
+        query = request.json["prompt"]
+        
+        print("Received prompt: " + query)
+      
+        query_results = query_pincone(query)
 
+        print(query_results['matches'][0]['metadata']['text'].replace("\n", ""))
 
+        result = query_results['matches'][0]['metadata']['text'].replace("\n", "")
+        
+        # for match in query_results["matches"]:
+        #     print()
+        #     print(f"Text chunk: {match['metadata']['text']}")
+
+        contexts = [x['metadata']['text'] for x in query_results['matches']]
+
+        prompt = prompt_generator(query, contexts)
+
+        # answer = OpenAI_concrete_response_about_pdf(prompt)
+
+        # print("Generated response by OpenAI : " + answer)
+
+        # return jsonify({'message': answer})
+        
+        return jsonify({'message': result})
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+ 
 
 
 with app.app_context():
