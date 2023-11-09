@@ -6,30 +6,55 @@ For similarity/semantic search on documents, we have used Pinecone, which is a f
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
+- [Backend](#backend)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [Contributing](#contributing)
-- [License](#license)
+- [Front](#frontend)
 
-## Getting Started
+# Backend 
 
-Provide instructions on how to set up and run your Flask project.
+## Setup Instructions
 
-### Prerequisites
+
+#### Prerequisites & Dependencies
+
+- Python 3.x
+- Flask
+- SQLAlchemy
+- MySQL database
+- OpenAI API (You will need an API key from OpenAI)
+- Pinecone API (You will need an API key from OpenAI)
+- Conda or pip (for managing virtual environment)
 
 List any prerequisites or dependencies that users need to have installed before they can use your project. Mention if you've included a Conda environment or requirements file.
+###  Clone the Repository
+- Clone the repository:
 
-### Installation
+   ```bash
+   git clone https://github.com/yourusername/your-repo.git
 
-1. Clone the repository: 
- ```bash 
-git clone https://github.com/yourusername/your-repo.git
-2. Go to the ```backend``` directory and run: 
-```bash 
-pip install -r requirements.txt
-3. Run:
- ```bash
-  Python3 main.py
+- cd generative-AI/backend
+
+### Create a Virtual Environment 
+- conda create --name myenv python=3.x
+- conda activate myenv
+- pip install -r requirements.txt
+
+
+
+### Set Up Your config.py or .env file
+- SQLALCHEMY_DATABASE_URI=mysql://your_username:your_password@localhost/your_database_name
+- OPENAI_API_KEY = your_openai_api_key
+- PINECONE_API_KEY = your_pinecone_api_key
+
+### Run The Application
+- python3 main.y
+
+### Backend Structure
+- ´main.py´: Defines alle the API endpoints that interact with the frontend of the application
+- ´services.py´ : Defines all the functions that interacts external APIs 
+- ´requirements.txt´ : Lists all project-specific dependencies.
+
