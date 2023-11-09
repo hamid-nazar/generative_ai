@@ -2,7 +2,6 @@ import { Cloud, File, Loader2 } from 'lucide-react'
 import { useState } from "react";
 import Dropzone from "react-dropzone";
 import { Progress } from './ui/progress';
-import { useToast } from './ui/use-toast';
 import {  useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -14,17 +13,20 @@ export default function UploadDropzone(){
 
     const [uploadProgress, setUploadProgress] = useState<number>(0)
 
-    const {toast} = useToast();
-
     const navigate = useNavigate();
 
     const startSimulatedProgress = () => {
+
       setUploadProgress(0)
   
       const interval = setInterval(() => {
+
         setUploadProgress((prevProgress) => {
+
           if (prevProgress >= 95) {
+
             clearInterval(interval)
+
             return prevProgress
           }
           return prevProgress + 5
@@ -34,19 +36,21 @@ export default function UploadDropzone(){
       return interval
     }
 
-  
 
     async function startUpload(file: File[]){
+
       console.log(file[0]);
 
      const pdfName = file[0].name.split('.')[0];
-     console.log(pdfName);
-      
+    
 
     const formData = new FormData();
+
     formData.append("file", file[0]);
+
+    setIsUploading(true)
     
-    axios.post("http://127.0.0.1:5000/upload", formData, {
+      await axios.post("http://127.0.0.1:5000/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -54,60 +58,27 @@ export default function UploadDropzone(){
       .then((response) => {
 		// handle the response
         console.log(response.data);
+
          navigate(`/pdf/${pdfName}`);
+
+         setIsUploading(false);
       })
       .catch((error) => {
         // handle errors
-        console.log(error);
+        console.log(error)
       });
-       
-  
-        return [];
     }
+
 
     return (
       <Dropzone
         multiple={false}
-        onDrop={async (acceptedFile) => {
-          
-          setIsUploading(true)
+        onDrop={(acceptedFile) => {
   
-          const progressInterval = startSimulatedProgress()
+         startSimulatedProgress()
   
-          // handle file uploading
-          const response = await startUpload(acceptedFile)
+        startUpload(acceptedFile)
 
-          console.log(response);
-          
-  
-          if (!response) {
-            return toast({
-              title: 'Something went wrong',
-              description: 'Please try again later',
-              variant: 'destructive',
-            })
-          }
-  
-          // const [fileResponse] = response
-  
-          // const key = fileResponse?.key
-
-          // const key = fileResponse
-  
-          // if (!key) {
-          //   return toast({
-          //     title: 'Something went wrong',
-          //     description: 'Please try again later',
-          //     variant: 'destructive',
-          //   })
-          // }
-  
-          // clearInterval(progressInterval)
-          // setUploadProgress(100)
-  
-
-          // navigate('/pdf')
-          
         }}>
         {({ getRootProps, getInputProps, acceptedFiles }) => (
           <div
@@ -126,7 +97,7 @@ export default function UploadDropzone(){
                     or drag and drop
                   </p>
                   <p className='text-xs text-zinc-500'>
-                    PDF files (up to 4GB)
+                    PDF files (up to 10 pages)
                   </p>
                 </div>
   

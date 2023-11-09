@@ -12,7 +12,7 @@ import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import { Button } from "./ui/Button"
 import { useState } from "react"
-import { useToast } from "./ui/use-toast"
+import { useToast } from "./ui/useToast"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { Input } from "./ui/Input"
@@ -59,9 +59,7 @@ export default function PdfRenderer({url}: {url: string}) {
       },
       resolver: zodResolver(CustomPageValidator),
     })
-  
-    console.log(errors)
-  
+
     const { width, ref } = useResizeDetector()
   
     const handlePageSubmit = ({

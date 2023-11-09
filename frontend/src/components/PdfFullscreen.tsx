@@ -8,7 +8,7 @@ import { Button } from './ui/Button'
 import { Expand, Loader2 } from 'lucide-react'
 import SimpleBar from 'simplebar-react'
 import { Document, Page } from 'react-pdf'
-import { useToast } from './ui/use-toast'
+import { useToast } from './ui/useToast'
 import { useResizeDetector } from 'react-resize-detector'
 
 

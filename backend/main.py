@@ -115,7 +115,8 @@ def upload_file():
     try:
     # delete all files from the database before uploading a new one
         # db.session.query(UploadedFile).delete()
-        # db.session.commit()
+        
+        UploadedFile.query.delete()
 
         file = request.files['file']
      
@@ -145,7 +146,8 @@ def get_file(name):
     
     pdf_file = BytesIO(upload.data)
 
-    create_embedding(pdf_file)
+    # create embedding of the uploaded file and then save it to the vector database
+    # create_embedding(pdf_file)
 
     return send_file(BytesIO(upload.data),download_name=upload.filename, as_attachment=True)
   
@@ -155,14 +157,16 @@ def get_file(name):
 def similarity_search(name):
     
     try:
-        query = request.json["prompt"]
+        query = request.json["query"]
         
-        print("Received prompt: " + query)
-      
+        print("Received query: " + query)
+
+        # query Pinecone vector store
         query_results = query_pincone(query)
 
         print(query_results['matches'][0]['metadata']['text'].replace("\n", ""))
 
+      
         result = query_results['matches'][0]['metadata']['text'].replace("\n", "")
         
         # for match in query_results["matches"]:
@@ -179,7 +183,7 @@ def similarity_search(name):
 
         # return jsonify({'message': answer})
         
-        return jsonify({'message': result})
+        return jsonify({'message': result}),200
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500

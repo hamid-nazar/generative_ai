@@ -63,7 +63,7 @@ export default function ConversationPage() {
           'Content-Type': 'application/json'
         } });
 
-        let data = await response.data;
+        const data = await response.data;
 
 
         console.log(data);
