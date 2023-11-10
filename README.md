@@ -9,7 +9,7 @@ For similarity/semantic search on documents, we have used Pinecone, which is a f
 - [Backend](#backend)
 
 - [Frontend](#frontend)
-- [Vido Demo](#video demo)
+- [Vido Demo](#video-demo)
 
 # Backend 
 
