@@ -7,12 +7,8 @@ For similarity/semantic search on documents, we have used Pinecone, which is a f
 ## Table of Contents
 
 - [Backend](#backend)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Contributing](#contributing)
-- [Front](#frontend)
+
+- [Frontend](#frontend)
 
 # Backend 
 
@@ -36,7 +32,7 @@ List any prerequisites or dependencies that users need to have installed before 
    ```bash
    git clone https://github.com/yourusername/your-repo.git
 
-- cd generative-AI/backend
+- '''cd generative-AI/backend'''
 
 ### Create a Virtual Environment 
 - conda create --name myenv python=3.x
