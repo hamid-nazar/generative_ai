@@ -72,5 +72,5 @@ List any prerequisites or dependencies that users need to have installed before 
 
 # Video Demo
 
-[![Video Demo](https://drive.google.com/file/d/1JFkextRSL9oxy3tnld61uWNDGwzWP-AS/view?usp=drive_link)](https://drive.google.com/file/d/19qgk7fxjWH_epWxWnZuSadGOnlNUJFcW/view?usp=drive_link)
+[![](https://drive.google.com/file/d/1JFkextRSL9oxy3tnld61uWNDGwzWP-AS/view?usp=drive_link)](https://drive.google.com/file/d/19qgk7fxjWH_epWxWnZuSadGOnlNUJFcW/view?usp=sharing)
 
