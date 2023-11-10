@@ -2,11 +2,9 @@ import json
 import uuid
 import time
 from PyPDF2 import PdfReader
-from PyPDF2.generic import IndirectObject
 import openai
 from decouple import config
 import pinecone
-import numpy as np
 
 openai.api_key = config("OPENAI_API_KEY")
 
@@ -104,8 +102,6 @@ def save_to_pinecone( embeddings):
 
 def create_embedding(pdf_file):
 
-    # pinecone_index.delete()
-
     reader = PdfReader(pdf_file)
     pages = reader.pages
 
@@ -191,6 +187,10 @@ def query_pincone(query_text):
 
 
 
+
+
+
+
 # query_text = "What is the capital of australia "
 
 # results = query(query_text)
@@ -200,10 +200,6 @@ def query_pincone(query_text):
 #     print(f"Text chunk: {match['metadata']['text']}")
 #     print(f"Similarity score: {match['score']}")
 #     print("\n")
-
-
-
-
 
 
 
@@ -219,21 +215,3 @@ def query_pincone(query_text):
 #     }])
 
 
-
-# pdf_file_path = './socrates.pdf'
-
-# create_embedding(pdf_file_path)
-
-
-# with open(pdf_file_path, 'rb') as file:
-#         pdf_reader = PdfReader(file)
-#         pages = pdf_reader.pages
-#         print("number of pages: ", len(pages))
-#         text = ''
-#         text_chunks = []
-
-#         for page in pages:
-#             page = page.extract_text()
-#             print(page)
-
-#             text += page

@@ -147,7 +147,7 @@ def get_file(name):
     pdf_file = BytesIO(upload.data)
 
     # create embedding of the uploaded file and then save it to the vector database
-    # create_embedding(pdf_file)
+    create_embedding(pdf_file)
 
     return send_file(BytesIO(upload.data),download_name=upload.filename, as_attachment=True)
   
@@ -176,6 +176,9 @@ def similarity_search(name):
         contexts = [x['metadata']['text'] for x in query_results['matches']]
 
         prompt = prompt_generator(query, contexts)
+
+        # If uncomment the lines below and comment the line "return jsonify({'message': result}),200" ,
+        # then it will generate a more detailed and concrete response from OpenAI
 
         # answer = OpenAI_concrete_response_about_pdf(prompt)
 

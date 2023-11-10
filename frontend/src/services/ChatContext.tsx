@@ -73,7 +73,7 @@ interface ChatContextType {
         console.log(message);
         
 
-        const response = await axios.post('http://127.0.0.1:5000/search/'+pathname,{"prompt": message},{
+        const response = await axios.post('http://127.0.0.1:5000/search/'+pathname,{"query": message},{
           headers: {
             'Content-Type': 'application/json'
           } });
