@@ -75,3 +75,7 @@ List any prerequisites or dependencies that users need to have installed before 
 
 [![""](./frontend/public/thamnail.png)](https://drive.google.com/file/d/19qgk7fxjWH_epWxWnZuSadGOnlNUJFcW/view?usp=sharing)
 
+
+
+## Additional Notes
+- You need to download the report on your own machine if you want to access the links mentioned in the reference section of the report 
