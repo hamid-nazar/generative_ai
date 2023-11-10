@@ -1,6 +1,6 @@
 # Savant
 
-Savant is a web application that integrates the OpenAI API to do text generation, image generation, and similarity/semantic search on documents. The objective of the application is to leverage generative AI models to provide users with powerful tools for content generation and document analysis. The motivation behind selecting this project was to explore the capabilities of OpenAI models and create a user-friendly interface for utilizing these models in real-world applications.
+Savant is a web application that integrates the OpenAI API to do text generation, image generation, and similarity/semantic search on documents. The objective of the application is to create a web platform which incorporates several distinct generative AI models. This platform gives potential users the ability to generate content(text/images) and to do some simple document analysis. The motivation behind selecting this project was to explore the capabilities of OpenAI models and create a user-friendly interface for utilizing these models in real-world applications.
 
 For similarity/semantic search on documents, we have used Pinecone, which is a fully managed vector database platform designed to handle high-dimensional vector data at scale.The OpenAI Embedding API is used to generate embeddings for the text data. 
 
