@@ -45,7 +45,7 @@ List any prerequisites or dependencies that users need to have installed before 
 
 
 
-### Set Up Your config.py or .env file
+### Set Up Your .env file
 - SQLALCHEMY_DATABASE_URI=mysql://your_username:your_password@localhost/your_database_name
 - OPENAI_API_KEY = your_openai_api_key
 - PINECONE_API_KEY = your_pinecone_api_key
@@ -54,7 +54,24 @@ List any prerequisites or dependencies that users need to have installed before 
 - python3 main.y
 
 ### Backend Structure
-- ´main.py´: Defines alle the API endpoints that interact with the frontend of the application
-- ´services.py´ : Defines all the functions that interacts external APIs 
-- ´requirements.txt´ : Lists all project-specific dependencies.
+- ```main.py```: Defines alle the API endpoints that interact with the frontend of the application
+- ```services.py``` : Defines all the functions that interacts with external APIs 
+- ```models.py```: Defines the different models in the application
+- ```config.py```: Defines the various configurations 
+- ```requirements.txt``` : Lists all project-specific dependencies.
+
+
+# Frontend 
+## Install Dependencies an Run The Application
+- cd generative-AI/front 
+- npm install
+- npm run dev
+
+
+## Tech Stack 
+- React + Vite 
+- Tailwind CSS 
+- Axios 
+
+
 
