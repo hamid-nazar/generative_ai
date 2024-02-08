@@ -72,7 +72,7 @@ For similarity/semantic search on documents, we have used Pinecone, which is a f
 
 # Video Demo
 
-[![""](./frontend/public/thamnail.png)](https://drive.google.com/file/d/19qgk7fxjWH_epWxWnZuSadGOnlNUJFcW/view?usp=sharing)
+[![](./frontend/public/thamnail.png)](https://drive.google.com/file/d/19qgk7fxjWH_epWxWnZuSadGOnlNUJFcW/view?usp=sharing)
 
 
 
