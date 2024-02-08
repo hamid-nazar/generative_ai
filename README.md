@@ -26,7 +26,6 @@ For similarity/semantic search on documents, we have used Pinecone, which is a f
 - Pinecone API (You will need an API key from OpenAI)
 - Conda or pip (for managing virtual environment)
 
-List any prerequisites or dependencies that users need to have installed before they can use your project. Mention if you've included a Conda environment or requirements file.
 ###  Clone the Repository
 - Clone the repository:
 
